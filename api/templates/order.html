@@ -1,0 +1,299 @@
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  body {
+    height: 100hv;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+
+  }
+
+  .container2 {
+    /* max-width: 700px; */
+    width: 100%;
+    background-color: #fff;
+    padding: 30px 100px;
+
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .container2 .title {
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+  }
+
+  .container2 .title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 30px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+  }
+
+  .content form .user-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0 12px 0;
+  }
+
+
+  form .user-details .input-box {
+    margin-bottom: 15px;
+    width: calc(100% / 2 - 20px);
+  }
+
+  form .input-box span.details {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+
+  .user-details .input-box input {
+    height: 45px;
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .user-details .input-box input:focus,
+  .user-details .input-box input:valid {
+    border-color: #9b59b6;
+  }
+
+  form .gender-details .gender-title {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  form .category {
+    display: flex;
+    width: 80%;
+    margin: 14px 0;
+    justify-content: space-between;
+  }
+
+  form .category label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  form .category label .dot {
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background: #d9d9d9;
+    border: 5px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  #dot-1:checked~.category label .one,
+  #dot-2:checked~.category label .two,
+  #dot-3:checked~.category label .three {
+    background: #9b59b6;
+    border-color: #d9d9d9;
+  }
+
+  form input[type="radio"] {
+    display: none;
+  }
+
+  form .button {
+    height: 45px;
+    margin: 35px 0
+  }
+
+  form .button input {
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+  }
+
+  form .button input:hover {
+    /* transform: scale(0.99); */
+    background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+  }
+
+  @media(max-width: 584px) {
+    .container {
+      max-width: 100%;
+    }
+
+    form .user-details .input-box {
+      margin-bottom: 15px;
+      width: 100%;
+    }
+
+    form .category {
+      width: 100%;
+    }
+
+    .content form .user-details {
+      max-height: 300px;
+      overflow-y: scroll;
+    }
+
+    .user-details::-webkit-scrollbar {
+      width: 5px;
+    }
+  }
+
+  @media(max-width: 459px) {
+    .container .content .category {
+      flex-direction: column;
+    }
+  }
+</style>
+
+
+
+{% extends 'base1.html' %}
+{% block title %}
+Add order details
+{% endblock title %}
+
+
+{% block body %}
+
+{% with messages=get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+
+<div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+  {{message}}
+
+
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+<br>
+<div style="height:5px; padding: 30px 20px"> </div>
+
+<div class="container2">
+  <div class="title">Order </div>
+
+  <div class="content">
+    <form id="order-form" action="/manageorder" method="post">
+      <div class="user-details">
+
+        <div class="input-box">
+          <label for="customer">Customer</label>
+          <input type="text" class="form-control" name="customer" id="customer">
+        </div>
+
+        <div class="input-box">
+          <label for="orderdate">Order date</label>
+          <input type="date" class="form-control" name="orderdate" id="orderdate">
+        </div>
+
+        <div class="input-box">
+          <label for="goods">Goods</label>
+          <input type="text" class="form-control" name="goods" id="goods">
+        </div>
+
+        <div class="input-box">
+          <label for="From">From</label>
+          <input type="text" class="form-control" name="From" id="From">
+        </div>
+
+        <div class="input-box">
+          <label for="to">To</label>
+          <input type="text" class="form-control" name="to" id="to">
+        </div>
+
+        <div class="input-box">
+          <label for="duedate">Due date</label>
+          <input type="date" class="form-control" name="duedate" id="duedate">
+        </div>
+
+        <div class="input-box">
+          <label for="status">Order status</label>
+          <select class="form-control" id="status" name="status" required>
+            <option value="Completed">Completed</option>
+            <option value="Pending">Pending</option>
+          </select>
+        </div>
+
+        <div class="button">
+          <input type="submit" class="btn btn-danger btn-sm btn-block" value="Add Record">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div style="height:10px"></div>
+
+
+<div class="container2">
+  <div class="title">Records </div>
+
+  <div class="content">
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Customer</th>
+          <th scope="col">Order date</th>
+          <th scope="col">Goods</th>
+          <th scope="col">From</th>
+          <th scope="col">To</th>
+          <th scope="col">Due date</th>
+          <th scope="col">Order status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in query %}
+        <tr>
+          <th scope="row">{{post.id}}</th>
+          <td>{{post.customer}}</td>
+          <td>{{post.orderdate}}</td>
+          <td>{{post.goods}}</td>
+          <td>{{post.From}}</td>
+          <td>{{post.to}}</td>
+          <td>{{post.duedate}}</td>
+          <td>{{post.status}}</td>
+          <td><a href="/editorder/{{post.id}}"><button class="btn btn-primary">Edit </button> </a> </td>
+          <td><a href="/deleteorder/{{post.id}}"><button onclick="return confirm('Are you sure to Delete data');"
+                class="btn btn-danger">Delete </button> </a> </td>
+        </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+
+{% endblock body %}

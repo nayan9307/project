@@ -1,0 +1,369 @@
+<!-- For calculating Total -->
+<script>
+  function mult(value) {
+    var x;
+    x = document.getElementById('distance').value * value;
+    document.getElementById('amount').value = x;
+  }
+</script>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  body {
+    height: 100hv;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+
+  }
+
+  .container2 {
+    max-width: 700px;
+    width: 100%;
+    background-color: #fff;
+    padding: 30px 100px;
+
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .container2 .title {
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+  }
+
+  .container2 .title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 30px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+  }
+
+  .content form .user-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0 12px 0;
+  }
+
+  .container3{
+    height: 20px;
+    padding: 30px 100px;
+  }
+
+  form .user-details .input-box {
+    margin-bottom: 15px;
+    width: calc(100% / 2 - 20px);
+  }
+
+  form .input-box span.details {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+
+  .user-details .input-box input {
+    height: 45px;
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .user-details .input-box input:focus,
+  .user-details .input-box input:valid {
+    border-color: #9b59b6;
+  }
+
+  form .gender-details .gender-title {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  form .category {
+    display: flex;
+    width: 80%;
+    margin: 14px 0;
+    justify-content: space-between;
+  }
+
+  form .category label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  form .category label .dot {
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background: #d9d9d9;
+    border: 5px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  #dot-1:checked~.category label .one,
+  #dot-2:checked~.category label .two,
+  #dot-3:checked~.category label .three {
+    background: #9b59b6;
+    border-color: #d9d9d9;
+  }
+
+  form input[type="radio"] {
+    display: none;
+  }
+
+  form .button {
+    height: 45px;
+    margin: 35px 0
+  }
+
+  form .button input {
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+  }
+
+  form .button input:hover {
+    /* transform: scale(0.99); */
+    background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+  }
+
+  @media(max-width: 584px) {
+    .container {
+      max-width: 100%;
+    }
+
+    form .user-details .input-box {
+      margin-bottom: 15px;
+      width: 100%;
+    }
+
+    form .category {
+      width: 100%;
+    }
+
+    .content form .user-details {
+      max-height: 300px;
+      overflow-y: scroll;
+    }
+
+    .user-details::-webkit-scrollbar {
+      width: 5px;
+    }
+  }
+
+  @media(max-width: 459px) {
+    .container .content .category {
+      flex-direction: column;
+    }
+  }
+</style>
+
+{% extends 'base1.html' %}
+{% block title %}
+Add details
+{% endblock title %}
+
+
+{% block body %}
+
+
+<!-- <h3 class="text-center"><span>Add Transport Details</span> </h3> -->
+
+{% with messages=get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+
+<div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+  {{message}}
+
+
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+<br>
+
+<div style="height:20px; padding: 30px 100px"> </div>
+<div class="container2">
+  <div class="title">Add Details</div>
+
+  <div class="content">
+    <form id="form-print" action="/adddetails" method="post">
+
+      <div class="user-details">
+        <div class="input-box">
+          <span class="details">Truck Number</span>
+          <input type="text" class="form-control" name="truckno" id="truckno">
+        </div>
+
+        <div class="input-box">
+          <!-- <label for="ttype">Truck Type</label> -->
+          <span class="details">Truck Type</span>
+
+          <select class="form-control" id="ttype" name="ttype" required>
+            <!-- <option selected>Select Truck Type</option>      -->
+            <option value="8-Tyre">8-Tyre</option>
+            <option value="10-Tyre">10-Tyre</option>
+            <option value="12-Tyre">12-Tyre</option>
+
+          </select>
+        </div>
+
+
+        <div class="input-box">
+          <label for="From">From</label>
+          <input type="text" class="form-control" name="From" id="From">
+        </div>
+
+
+        <div class="input-box">
+          <label for="to">To</label>
+          <input type="text" class="form-control" name="to" id="to">
+        </div>
+
+
+        <div class="input-box">
+          <label for="consignor">Consignor</label>
+          <input type="text" class="form-control" name="consignor" id="consignor">
+        </div>
+
+
+        <div class="input-box">
+          <label for="consignee">Consignee</label>
+          <input type="text" class="form-control" name="consignee" id="consignee">
+        </div>
+
+
+        <div class="input-box">
+          <label for="transporter">Transporter</label>
+          <input type="text" class="form-control" name="transporter" id="transporter">
+        </div>
+
+
+        <div class="input-box">
+          <label for="distance">Distance</label>
+          <input type="number" class="form-control" name="distance" id="distance">
+        </div>
+
+
+        <div class="input-box">
+          <label for="rate">Rate</label>
+          <input type="number" class="form-control" name="rate" id="rate" onkeyup="mult(this.value)">
+        </div>
+
+        <div class="input-box">
+          <label for="goods">Goods</label>
+          <input type="text" class="form-control" name="goods" id="goods">
+
+        </div>
+
+
+        <div class="input-box">
+          <label for="quantity">Quantity</label>
+          <input type="number" class="form-control" name="quantity" id="quantity">
+        </div>
+
+
+        <div class="input-box">
+          <label for="driver">Driver</label>
+          <input type="text" class="form-control" name="driver" id="driver">
+        </div>
+
+
+        <div class="input-box">
+          <label for="num">Driver's Mobile Number</label>
+          <input type="number" class="form-control" name="num" id="num">
+        </div>
+
+
+        <div class="input-box">
+          <label for="amount">Total Amount</label>
+          <input type="number" class="form-control" name="amount" id="amount">
+        </div>
+
+      </div>
+      <!-- <div class="button">
+        <input type="button" class="btn btn-danger btn-sm btn-block" onclick="GenerateBill();" value="GenerateBill">
+      </div> -->
+
+      <div class="button">
+        <input type="submit" class="btn btn-danger btn-sm btn-block" value="Add Record">
+
+      </div>
+      
+    </form>
+
+
+
+    <!-- Print bill -->
+    <script>
+      function GenerateBill() {
+        // Get the form data
+        var form = document.getElementById('form-print').innerHTML;
+
+        // Replace the form fields with their values
+        form = form.replace(/<input.*?name="(.*?)".*?>/g, function (match, name) {
+          var value = document.getElementsByName(name)[0].value;
+          return '<div>' + value + '</div>';
+        });
+        form = form.replace(/<textarea.*?name="(.*?)".*?>(.*?)<\/textarea>/g, function (match, name, value) {
+          return '<div>' + value + '</div>';
+        });
+
+        // Open a new window with the form data
+        var win = window.open('', '', 'height=700,width=700');
+        win.document.write('<html><head><title>My Form</title>');
+        win.document.write('<style>body {text-align: center;}</style>');
+        win.document.write('</head><body>');
+        win.document.write(form);
+        win.document.write('</body></html>');
+
+        // Print the window
+        win.print();
+        win.close();
+      }
+
+    </script>
+    <!-- end  -->
+
+
+    
+
+
+  </div>
+
+  <div class="col-md-4"></div>
+
+</div>
+</div>
+
+
+
+{% endblock body %}
